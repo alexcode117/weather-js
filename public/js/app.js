@@ -43,7 +43,6 @@ function init() {
     
         const res = await fetch(link)
         const data = await res.json();
-        console.log(data)
         
         if(isSearch) titleCity.textContent = data.name;
     
@@ -61,12 +60,14 @@ function init() {
         return data;
     };
 
-    navigator.geolocation.getCurrentPosition((position) => {
-        coordenadas.lat = position.coords.latitude;
-        coordenadas.lon = position.coords.longitude;
+    window.addEventListener('load', () => {
+        navigator.geolocation.getCurrentPosition((position) => {
+            coordenadas.lat = position.coords.latitude;
+            coordenadas.lon = position.coords.longitude;
+        });
+        titleCity.textContent = 'Tu ciudad';
+        getData();
     });
-    titleCity.textContent = 'Tu ciudad';
-    getData();
 };
 
 init();
